@@ -55,8 +55,8 @@ public abstract class DataKelas{
 
     protected DataKelas(Map<String, List<Integer>> dataNilaiKelas) {
         sortData(dataNilaiKelas);
-        this.namaKelas = ambilKelas(dataNilaiKelas);
         this.dataNilaiKelas = dataNilaiKelas;
+        this.namaKelas = ambilKelas(dataNilaiKelas);
     }
 
     protected void sortData(Map<String, List<Integer>> dataNilaiKelas){

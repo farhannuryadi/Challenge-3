@@ -1,7 +1,6 @@
 package com.binar.academy.service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.binar.academy.repository.DataKelas;
 
@@ -25,8 +24,8 @@ public class CountService extends DataKelas implements BaseCount {
         else {
             mean();
             median();
-            modus();
             modusFrekuensi();
+            modus();
         }
     }
     @Override
@@ -99,6 +98,14 @@ public class CountService extends DataKelas implements BaseCount {
         int h = 0;
         int j = 0;
         int max =0;
+//        super.getDataFrekuensi().stream()
+//                .forEach(value -> {
+//                    int jumlah =0;
+//                    int nilai=0;
+//                    Map<Integer, Integer> cb = new HashMap<>(value);
+//                    int maxx = cb.entrySet().stream().map(keys -> keys.getValue())
+//                            .filter()
+//                });
 //        super.dataNilaiKelas.entrySet().stream()
 //                .map(keys -> keys.getValue())
 //                .forEach(integers -> {
