@@ -13,8 +13,6 @@ m
 =src/test/java/com/binar/academy/service/ResultStringTest.java,f\d\fda55f917356f967fa805858acb9b3f49278bc4f
 a
 1src/main/java/com/binar/academy/utility/Path.java,f\4\f4a4536f395425c46103e7229f71619b099048dc
-k
-;src/main/java/com/binar/academy/controller/MenuControl.java,d\a\da09009f1587151b1c94fd692445ef89c9e9b927
 i
 9src/main/java/com/binar/academy/repository/DataKelas.java,e\e\eefaeae2c798118dba538007afb9a96d30f1bcac
 f
