@@ -52,9 +52,8 @@ public class CountService extends DataKelas implements BaseCount {
                 .map(keys -> keys.getValue())
                 .forEach(integers -> {
                     List<Integer> nilai = new ArrayList<>(integers);
-                    double temp=0;
                     double size = nilai.stream().mapToDouble(value -> value).count();
-                    temp = (size % 2 == 1)?
+                    double temp = (size % 2 == 1)?
                             nilai.get((int) (size/2)):(nilai.get((int) (size/2)) + nilai.get((int) (size/2)))/2;
                     tempMedian.add(temp);
                 });
