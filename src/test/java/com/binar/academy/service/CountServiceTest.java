@@ -37,6 +37,7 @@ class CountServiceTest {
     @Test
     @DisplayName("Cek Apakah hasil median yang keluar sama dengan 7")
     void testMedianEqualsSeven() {
+//        countService.median();
         List<Double> result = countService.median();
         assertEquals(7, result.get(0));
     }
