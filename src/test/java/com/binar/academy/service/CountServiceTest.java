@@ -69,5 +69,11 @@ class CountServiceTest {
         Map<String, List<Integer>> empty = new HashMap<>();
         Exception e = assertThrows(NullPointerException.class, ()-> new CountService(empty));
         assertEquals("file yang dibaca kosong, Cek kembali file tesebut", e.getMessage());
+
+//        pengecekan jika menggunakan Optional
+        /*countService = new CountService(empty);
+        System.out.println(countService.getDataFrekuensi());
+        assertNotNull(countService);
+         */
     }
 }

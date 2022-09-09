@@ -1,6 +1,7 @@
 package com.binar.academy.service;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class ResultString {
@@ -8,38 +9,49 @@ public class ResultString {
     private static StringBuilder stringBuilder;
 
     public static String resultStringMenu1(CountService countService){
+        Optional<CountService> cs = Optional.ofNullable(countService);
         stringBuilder = new StringBuilder();
-        stringBuilder.append("Berikut Hasil Pengolahan Nilai\n\n");
-        for (int i = 0; i < countService.getNamaKelas().size(); i++) {
-            stringBuilder.append(countService.getNamaKelas().get(i)).append(" : \n");
-            stringBuilder.append("-----------------------------\n");
-            stringBuilder.append( "|Nilai           | Frekuensi|\n");
-            stringBuilder.append("-----------------------------\n");
-            Map<Integer,Integer> temp = countService.getDataFrekuensi().get(i);
-            Set<Map.Entry<Integer, Integer>> entries = temp.entrySet();
-            int lessThanSix = 0;
-            for (var entry: entries) {
-                if (entry.getKey() < 6 ) lessThanSix += entry.getValue();
+        if (cs.isPresent()) {
+            stringBuilder.append("Berikut Hasil Pengolahan Nilai\n\n");
+            for (int i = 0; i < countService.getNamaKelas().size(); i++) {
+                stringBuilder.append(countService.getNamaKelas().get(i)).append(" : \n");
+                stringBuilder.append("-----------------------------\n");
+                stringBuilder.append("|Nilai           | Frekuensi|\n");
+                stringBuilder.append("-----------------------------\n");
+                Map<Integer, Integer> temp = countService.getDataFrekuensi().get(i);
+                Set<Map.Entry<Integer, Integer>> entries = temp.entrySet();
+                int lessThanSix = 0;
+                for (var entry : entries) {
+                    if (entry.getKey() < 6) lessThanSix += entry.getValue();
+                }
+                stringBuilder.append(String.format("|Kurang dari 6   | %-9d|", lessThanSix)).append("\n");
+                for (var entry : entries) {
+                    if (entry.getKey() >= 6)
+                        stringBuilder.append(String.format("|%-15d | %-9d|", entry.getKey(), entry.getValue())).append("\n");
+                }
+                stringBuilder.append("-----------------------------\n\n");
             }
-            stringBuilder.append(String.format("|Kurang dari 6   | %-9d|", lessThanSix)).append("\n");
-            for (var entry: entries) {
-                if (entry.getKey() >= 6)
-                    stringBuilder.append(String.format("|%-15d | %-9d|", entry.getKey(), entry.getValue())).append("\n");
-            }
-            stringBuilder.append("-----------------------------\n\n");
+        }else {
+            stringBuilder.append("Data Kosong!!");
         }
         return stringBuilder.toString();
     }
     public static String resultStringMenu2(CountService countService){
+        Optional<CountService> cs = Optional.ofNullable(countService);
         stringBuilder = new StringBuilder();
-        stringBuilder.append("Berikut Hasil Pengolahan Nilai\n\n");
-        stringBuilder.append( "Berikut hasil sebaran data nilai\n");
-        stringBuilder.append("----------------------------------------\n");
-        for (int i = 0; i < countService.getNamaKelas().size(); i++) {
-            stringBuilder.append(countService.getNamaKelas().get(i)).append("\n");
-            stringBuilder.append("Mean   : ").append(String.format("%.2f", countService.getDataMean().get(i))).append("\n");
-            stringBuilder.append("Median : ").append(countService.getDataMedian().get(i).toString()).append("\n");
-            stringBuilder.append("Modus  : ").append(countService.getDataModus().get(i).toString()).append("\n\n");
+        if (cs.isPresent()) {
+            stringBuilder = new StringBuilder();
+            stringBuilder.append("Berikut Hasil Pengolahan Nilai\n\n");
+            stringBuilder.append("Berikut hasil sebaran data nilai\n");
+            stringBuilder.append("----------------------------------------\n");
+            for (int i = 0; i < countService.getNamaKelas().size(); i++) {
+                stringBuilder.append(countService.getNamaKelas().get(i)).append("\n");
+                stringBuilder.append("Mean   : ").append(String.format("%.2f", countService.getDataMean().get(i))).append("\n");
+                stringBuilder.append("Median : ").append(countService.getDataMedian().get(i).toString()).append("\n");
+                stringBuilder.append("Modus  : ").append(countService.getDataModus().get(i).toString()).append("\n\n");
+            }
+        }else {
+            stringBuilder.append("Data Kosong!!");
         }
         return stringBuilder.toString();
     }

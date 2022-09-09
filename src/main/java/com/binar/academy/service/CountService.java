@@ -1,15 +1,28 @@
 package com.binar.academy.service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import com.binar.academy.repository.DataKelas;
 
 public class CountService extends DataKelas implements BaseCount {
 
     public CountService(Map<String, List<Integer>> dataNilaiKelas) throws NullPointerException{
         super(dataNilaiKelas);
+//        Jika menggunakan Optional
+        /*Optional<Map<String, List<Integer>>> dataKelas = Optional.ofNullable(super.dataNilaiKelas);
+        if (dataKelas.isPresent()){
+            mean();
+            median();
+            modus();
+            modusFrekuensi();
+        }
+        */
+
         if (dataNilaiKelas.isEmpty()){
             throw new NullPointerException("file yang dibaca kosong, Cek kembali file tesebut");
-        }else {
+        }
+        else {
             mean();
             median();
             modus();
@@ -20,19 +33,27 @@ public class CountService extends DataKelas implements BaseCount {
     @Override
     public List<Double> mean() {
         List<Double> tempMean = new ArrayList<>();
-        Set<Map.Entry<String, List<Integer>>> entries = super.dataNilaiKelas.entrySet();
-        for (var entry: entries) {
-            List<Double> nilaiPerkelas = new ArrayList<>();
-            double temp=0;
-            for (var value: super.dataNilaiKelas.get(entry.getKey())) {
-                nilaiPerkelas.add(Double.valueOf(value));
-            }
-            for (var nilai:
-                 nilaiPerkelas) {
-                temp += nilai;
-            }
-            tempMean.add(temp/nilaiPerkelas.size());
-        }
+        super.dataNilaiKelas.entrySet().stream()
+                .map(keys -> keys.getValue())
+                .forEach(integers -> {
+                    List<Integer> nilai = new ArrayList<>(integers);
+                    double temp = nilai.stream()
+                            .mapToDouble(value -> value)
+                            .average().orElse(Double.NaN);
+                    tempMean.add(temp);
+                });
+//        System.out.println(tempMean);
+//        for (var entry: entries) {
+//            List<Double> nilaiPerkelas = new ArrayList<>();
+//            for (var value: super.dataNilaiKelas.get(entry.getKey())) {
+//                nilaiPerkelas.add(Double.valueOf(value));
+//            }
+////            menggunakan Stream
+//            double temp = nilaiPerkelas.stream()
+//                    .mapToDouble(Double::doubleValue)
+//                    .average().orElse(Double.NaN);
+//            tempMean.add(temp);
+//        }
         super.setDataMean(tempMean);
         return super.getDataMean();
     }
