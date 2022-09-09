@@ -1,7 +1,6 @@
 package com.binar.academy.service;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import com.binar.academy.repository.DataKelas;
 
@@ -25,8 +24,8 @@ public class CountService extends DataKelas implements BaseCount {
         else {
             mean();
             median();
-            modus();
             modusFrekuensi();
+            modus();
         }
     }
     @Override
@@ -69,6 +68,37 @@ public class CountService extends DataKelas implements BaseCount {
         int h = 0;
         int j = 0;
         int max =0;
+//        super.getDataFrekuensi().stream()
+//                .forEach(value -> {
+//                    int jumlah =0;
+//                    int nilai=0;
+//                    Map<Integer, Integer> cb = new HashMap<>(value);
+//                    int maxx = cb.entrySet().stream().map(keys -> keys.getValue())
+//                            .filter()
+//                });
+//        super.dataNilaiKelas.entrySet().stream()
+//                .map(keys -> keys.getValue())
+//                .forEach(integers -> {
+//                    List<Integer> nilai = new ArrayList<>(integers);
+//                    int result = 0;
+//                    int h= 0;
+//                    int j = 0;
+//                    int max =0;
+//                    int has = nilai.stream()
+//                            .mapToInt(value -> {
+//                                if (value == j){
+//                                    h++;
+//                                    if (h>max){
+//                                        max = h;
+//                                        result = j;
+//                                    }
+//                                }else {
+//                                    j = value;
+//                                    h = 1;
+//                                }
+//                                return result;
+//                            });
+//                });
         for (var entry: entries) {
             List<Integer> nilaiPerkelas = new ArrayList<>(super.dataNilaiKelas.get(entry.getKey()));
             int[] dataArray = new int[nilaiPerkelas.size()];
@@ -97,19 +127,29 @@ public class CountService extends DataKelas implements BaseCount {
     @Override
     public List<Map<Integer, Integer>> modusFrekuensi() {
         List<Map<Integer, Integer>> modusfrekuensi = new ArrayList<>();
-        Set<Map.Entry<String, List<Integer>>> entries = super.dataNilaiKelas.entrySet();
-        for (var entry: entries) {
-            HashMap<Integer, Integer> frequency = new HashMap<>();
-            List<Integer> nilaiPerkelas = new ArrayList<>(super.dataNilaiKelas.get(entry.getKey()));
-            int[] dataArray = new int[nilaiPerkelas.size()];
-            for (int i = 0; i < nilaiPerkelas.size(); i++) {
-                dataArray[i] = nilaiPerkelas.get(i);
-            }
-            for (Integer ch : dataArray) {
-                frequency.merge(ch, 1, Integer::sum);
-            }
-            modusfrekuensi.add(frequency);
-        }
+        super.dataNilaiKelas.entrySet().stream()
+                .map(keys -> keys.getValue())
+                .forEach(integers -> {
+                    HashMap<Integer, Integer> frequency = new HashMap<>();
+                    List<Integer> nilai = new ArrayList<>(integers);
+                    nilai.stream().forEach(integer -> {
+                                frequency.merge(integer, 1, Integer::sum);
+                            });
+                    modusfrekuensi.add(frequency);
+                });
+//        Set<Map.Entry<String, List<Integer>>> entries = super.dataNilaiKelas.entrySet();
+//        for (var entry: entries) {
+//            HashMap<Integer, Integer> frequency = new HashMap<>();
+//            List<Integer> nilaiPerkelas = new ArrayList<>(super.dataNilaiKelas.get(entry.getKey()));
+//            int[] dataArray = new int[nilaiPerkelas.size()];
+//            for (int i = 0; i < nilaiPerkelas.size(); i++) {
+//                dataArray[i] = nilaiPerkelas.get(i);
+//            }
+//            for (Integer ch : dataArray) {
+//                frequency.merge(ch, 1, Integer::sum);
+//            }
+//            modusfrekuensi.add(frequency);
+//        }
         super.setDataFrekuensi(modusfrekuensi);
         return super.getDataFrekuensi();
     }
