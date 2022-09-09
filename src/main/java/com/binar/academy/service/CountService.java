@@ -41,18 +41,6 @@ public class CountService extends DataKelas implements BaseCount {
                             .average().orElse(Double.NaN);
                     tempMean.add(temp);
                 });
-//        Set<Map.Entry<String, List<Integer>>> entries = super.dataNilaiKelas.entrySet();
-//        for (var entry: entries) {
-//            List<Double> nilaiPerkelas = new ArrayList<>();
-//            for (var value: super.dataNilaiKelas.get(entry.getKey())) {
-//                nilaiPerkelas.add(Double.valueOf(value));
-//            }
-////            menggunakan Stream
-//            double temp = nilaiPerkelas.stream()
-//                    .mapToDouble(Double::doubleValue)
-//                    .average().orElse(Double.NaN);
-//            tempMean.add(temp);
-//        }
         super.setDataMean(tempMean);
         return super.getDataMean();
     }
@@ -70,23 +58,6 @@ public class CountService extends DataKelas implements BaseCount {
                             nilai.get((int) (size/2)):(nilai.get((int) (size/2)) + nilai.get((int) (size/2)))/2;
                     tempMedian.add(temp);
                 });
-//        Set<Map.Entry<String, List<Integer>>> entries = super.dataNilaiKelas.entrySet();
-//        for (var entry: entries) {
-//            List<Double> nilaiPerkelas = new ArrayList<>();
-//            double temp=0;
-//            for (var value: super.dataNilaiKelas.get(entry.getKey())) {
-//                nilaiPerkelas.add(Double.valueOf(value));
-//            }
-//            for (var ignored :
-//                 nilaiPerkelas) {
-//                if (nilaiPerkelas.size() % 2 ==1){
-//                    temp = nilaiPerkelas.get(nilaiPerkelas.size()/2);
-//                }else {
-//                    temp = (nilaiPerkelas.get(nilaiPerkelas.size()/2) + nilaiPerkelas.get(nilaiPerkelas.size()/2))/2;
-//                }
-//            }
-//        }
-//            tempMedian.add(temp);
         super.setDataMedian(tempMedian);
         return super.getDataMedian();
     }
@@ -99,29 +70,6 @@ public class CountService extends DataKelas implements BaseCount {
         int h = 0;
         int j = 0;
         int max =0;
-//        super.dataNilaiKelas.entrySet().stream()
-//                .map(keys -> keys.getValue())
-//                .forEach(integers -> {
-//                    List<Integer> nilai = new ArrayList<>(integers);
-//                    int result = 0;
-//                    int h= 0;
-//                    int j = 0;
-//                    int max =0;
-//                    int has = nilai.stream()
-//                            .mapToInt(value -> {
-//                                if (value == j){
-//                                    h++;
-//                                    if (h>max){
-//                                        max = h;
-//                                        result = j;
-//                                    }
-//                                }else {
-//                                    j = value;
-//                                    h = 1;
-//                                }
-//                                return result;
-//                            });
-//                });
         for (var entry: entries) {
             List<Integer> nilaiPerkelas = new ArrayList<>(super.dataNilaiKelas.get(entry.getKey()));
             int[] dataArray = new int[nilaiPerkelas.size()];
